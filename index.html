@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人介绍 - 金融科技</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #0a0e17;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #0d1321 0%, #0f1729 100%);
+            width: 100%;
+            max-width: 420px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0, 201, 167, 0.08);
+            border: 1px solid rgba(0, 201, 167, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a2332 0%, #0f1729 100%);
+            color: white;
+            padding: 45px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 201, 167, 0.08) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .avatar-container {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid rgba(0, 201, 167, 0.4);
+            background: linear-gradient(135deg, #1a2332 0%, #0f1729 100%);
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 45px;
+            box-shadow: 0 0 30px rgba(0, 201, 167, 0.2);
+            object-fit: cover;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .avatar:hover {
+            border-color: rgba(0, 201, 167, 0.7);
+            box-shadow: 0 0 40px rgba(0, 201, 167, 0.3);
+        }
+
+        .avatar-input {
+            display: none;
+        }
+
+        .name {
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(135deg, #00c9a7 0%, #009980 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .title {
+            font-size: 14px;
+            opacity: 0.7;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+            color: #aaa;
+        }
+
+        .content {
+            padding: 35px 30px;
+        }
+
+        .section {
+            margin-bottom: 26px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 11px;
+            color: #00c9a7;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #ccc;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-item:hover {
+            color: #00c9a7;
+            transform: translateX(5px);
+        }
+
+        .info-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: rgba(0, 201, 167, 0.1);
+            border: 1px solid rgba(0, 201, 167, 0.2);
+            margin-right: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00c9a7;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .info-text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 5px 14px;
+            background: rgba(0, 201, 167, 0.1);
+            border: 1px solid rgba(0, 201, 167, 0.2);
+            color: #00c9a7;
+            border-radius: 4px;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: rgba(0, 201, 167, 0.15);
+            border-color: rgba(0, 201, 167, 0.4);
+            box-shadow: 0 0 15px rgba(0, 201, 167, 0.2);
+        }
+
+        .bio {
+            font-size: 14px;
+            color: #bbb;
+            line-height: 1.7;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 16px;
+            border-radius: 10px;
+            border-left: 3px solid #00c9a7;
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            padding-top: 22px;
+            border-top: 1px solid rgba(0, 201, 167, 0.1);
+        }
+
+        .link-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(0, 201, 167, 0.1);
+            border: 1px solid rgba(0, 201, 167, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #00c9a7;
+        }
+
+        .link-icon:hover {
+            background: rgba(0, 201, 167, 0.15);
+            border-color: rgba(0, 201, 167, 0.5);
+            box-shadow: 0 0 20px rgba(0, 201, 167, 0.3);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .card {
+                border-radius: 16px;
+            }
+
+            .header {
+                padding: 35px 20px;
+            }
+
+            .avatar {
+                width: 90px;
+                height: 90px;
+                font-size: 36px;
+            }
+
+            .name {
+                font-size: 24px;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <div class="avatar-container">
+                <label for="avatar-upload">
+                    <img id="avatar-img" class="avatar" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20portrait%20of%20a%20financial%20analyst%20in%20dark%20business%20suit%20with%20charts%20and%20graphs%20background&image_size=square" alt="点击更换头像">
+                </label>
+                <input type="file" id="avatar-upload" class="avatar-input" accept="image/*" onchange="uploadAvatar(event)">
+            </div>
+            <div class="name">吴杰</div>
+            <div class="title">主升浪启动特征研究员</div>
+        </div>
+        <div class="content">
+            <div class="section">
+                <div class="section-title">研究理念</div>
+                <div class="bio">主升浪启动前，到底有哪些可验证、可量化、可复现的共性？公开记录整个研究过程。不讲技术，不讲个股，不推荐板块。</div>
+            </div>
+            <div class="section">
+                <div class="section-title">关注领域</div>
+                <div class="tags">
+                    <span class="tag">价值投资</span>
+                    <span class="tag">量化分析</span>
+                    <span class="tag">宏观经济</span>
+                    <span class="tag">行业研究</span>
+                    <span class="tag">金融科技</span>
+                    <span class="tag">资产配置</span>
+                    <span class="tag">AI应用</span>
+                    <span class="tag">运动休闲</span>
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-title">专业技能</div>
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">数据分析</span>
+                    <span class="tag">图表分析</span>
+                    <span class="tag">技术指标</span>
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-title">联系方式</div>
+                <div class="info-item" onclick="window.location.href='weixin://'">
+                    <span class="info-icon">💬</span>
+                    <span class="info-text">wj678444</span>
+                </div>
+                <div class="info-item" onclick="window.location.href='tel:18057110982'">
+                    <span class="info-icon">📞</span>
+                    <span class="info-text">18057110982</span>
+                </div>
+                <div class="info-item" onclick="window.location.href='mailto:389189782@qq.com'">
+                    <span class="info-icon">📧</span>
+                    <span class="info-text">389189782@qq.com</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-icon">📍</span>
+                    <span class="info-text">浙江杭州</span>
+                </div>
+            </div>
+            <div class="links">
+                <div class="link-icon">📈</div>
+                <div class="link-icon">💼</div>
+                <div class="link-icon">🔗</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const DEFAULT_AVATAR = 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20portrait%20of%20a%20financial%20analyst%20in%20dark%20business%20suit%20with%20charts%20and%20graphs%20background&image_size=square';
+
+        function initAvatar() {
+            const savedAvatar = localStorage.getItem('user_avatar');
+            const avatarImg = document.getElementById('avatar-img');
+            if (savedAvatar) {
+                avatarImg.src = savedAvatar;
+            } else {
+                avatarImg.src = DEFAULT_AVATAR;
+            }
+        }
+
+        function uploadAvatar(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const avatarData = e.target.result;
+                    document.getElementById('avatar-img').src = avatarData;
+                    localStorage.setItem('user_avatar', avatarData);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        window.onload = initAvatar;
+    </script>
+</body>
+</html>
