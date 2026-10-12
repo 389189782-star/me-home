@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>主升浪五维记录器 Pro - 首版</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">纪律老吴 | 历史样本复盘工具</p>
+      <h1>主升浪五维记录器 Pro</h1>
+      <p class="subhead">按平台、启动 K 线、量能、指标和大周期五个维度，生成一份历史样本记录卡。</p>
+    </div>
+    <div class="top-actions">
+      <button class="ghost" id="loadSample066">载入 No.066</button>
+      <button class="ghost" id="loadSample067">载入 No.067</button>
+      <button class="primary" id="saveRecord">保存记录</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="workspace" aria-label="五维记录表单">
+      <section class="band intro-band">
+        <div class="intro-item">
+          <b>01</b>
+          <span>填历史样本</span>
+          <p>默认记录已经发生的样本，先把结构看清楚。</p>
+        </div>
+        <div class="intro-item">
+          <b>02</b>
+          <span>看扣分项</span>
+          <p>重点看哪里拖后腿，而不是只盯总分。</p>
+        </div>
+        <div class="intro-item">
+          <b>03</b>
+          <span>导出记录卡</span>
+          <p>把样本变成一张可归档、可复查的卡片。</p>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="band-title">
+          <span class="step">01</span>
+          <div>
+            <h2>基础信息</h2>
+            <p>默认记录历史样本；观察样本只作个人记录，不给个股结论。</p>
+          </div>
+        </div>
+        <div class="grid basic-grid">
+          <label>
+            记录模式
+            <select id="sampleMode">
+              <option value="historical" selected>历史样本</option>
+              <option value="watch">观察样本</option>
+            </select>
+          </label>
+          <label>
+            样本编号
+            <input id="sampleNo" type="text" placeholder="No.070">
+          </label>
+          <label>
+            样本简称
+            <input id="sampleName" type="text" placeholder="可匿名，如样本 A">
+          </label>
+          <label>
+            启动日
+            <input id="launchDate" type="date">
+          </label>
+          <label>
+            整理周期
+            <div class="suffix-field">
+              <input id="days" type="number" min="0" step="1" placeholder="例如 71">
+              <span>天</span>
+            </div>
+          </label>
+          <label>
+            换手
+            <div class="suffix-field">
+              <input id="turnover" type="number" min="0" step="0.1" placeholder="例如 9.7">
+              <span>%</span>
+            </div>
+          </label>
+          <label id="reviewMoveLabel">
+            <span id="reviewMoveTitle">回溯表现</span>
+            <input id="reviewMove" type="text" placeholder="例如 +96% / -30%">
+          </label>
+        </div>
+        <p class="mode-note" id="modeNote">历史样本模式用于记录已经走完一段的图形，方便后续复查和归档。</p>
+      </section>
+
+      <section class="band">
+        <div class="band-title">
+          <span class="step">02</span>
+          <div>
+            <h2>平台结构</h2>
+            <p>满分 30 分，记录启动前的平台质量。</p>
+          </div>
+        </div>
+        <div class="grid">
+          <label>
+            平台存在
+            <select id="platformExists" data-group="score">
+              <option value="0" selected>请选择</option>
+              <option value="10">是</option>
+              <option value="5">一般</option>
+              <option value="0">否</option>
+            </select>
+          </label>
+          <label>
+            平台振幅
+            <select id="amplitude" data-group="score">
+              <option value="0" selected>请选择</option>
+              <option value="7">明显收敛</option>
+              <option value="4">一般</option>
+              <option value="0">发散</option>
+            </select>
+          </label>
+          <label>
+            低点结构
+            <select id="lowStructure" data-group="score">
+              <option value="0" selected>请选择</option>
+              <option value="8">逐级抬高</option>
+              <option value="4">平行</option>
+              <option value="0">下移</option>
+            </select>
+          </label>
+          <label>
+            均线承接
+            <select id="maSupport" data-group="score">
+              <option value="0" selected>请选择</option>
+              <option value="5">始终踩住</option>
+              <option value="3">偶尔跌破</option>
+              <option value="0">多次跌破</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="band-title">
+          <span class="step">03</span>
+          <div>
+            <h2>启动 K 线</h2>
+            <p>满分 25 分，记录启动当天的突破质量。</p>
+          </div>
+        </div>
+        <div class="grid">
+          <label>
+            启动方式
+            <select id="startMode" data-group="score">
+              <option value="0" selected>请选择</option>
+              <option value="9">一步脱离</option>
+              <option value="6">回踩确认</option>
+              <option value="0">假突破</option>
+            </select>
+          </label>
+          <label>
+            K 线实体
+            <select id="bodyQuality" data-group="score">
+              <option value="0" selected>请选择</option>
+              <option value="8">长实体</option>
+              <option value="4">中等</option>
+              <option value="0">上影长</option>
+            </select>
+          </label>
+          <label>
+            均线位置
+            <select id="maPosition" data-group="score">
+              <option value="0" selected>请选择</option>
+              <option value="8">站上全部</option>
+              <option value="5">站上大部分</option>
+              <option value="0">未站上</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="band-title">
+          <span class="step">04</span>
+          <div>
+            <h2>量能结构</h2>
+            <p>满分 20 分，记录量是否配合、位置是否合适。</p>
+          </div>
+        </div>
+        <div class="grid">
+          <label>
+            倍量
+            <div class="suffix-field">
+              <input id="volumeMultiple" data-group="score" type="number" min="0" step="0.1" placeholder="例如 2.6">
+              <span>倍</span>
+            </div>
+          </label>
+          <label>
+            放量位置
+            <select id="volumePosition" data-group="score">
+              <option value="0" selected>请选择</option>
+              <option value="6">平台末端</option>
+              <option value="3">平台中段</option>
+              <option value="1.5">拉升途中</option>
+            </select>
+          </label>
+          <label>
+            量能节奏
+            <select id="volumeRhythm" data-group="score">
+              <option value="0" selected>请选择</option>
+              <option value="6">放量不失控</option>
+              <option value="2">过早天量</option>
+              <option value="0">量能衰减</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="band-title">
+          <span class="step">05</span>
+          <div>
+            <h2>指标共振</h2>
+            <p>满分 15 分，只记录历史样本里的同步情况。</p>
+          </div>
+        </div>
+        <div class="grid">
+          <label>
+            MACD
+            <select id="macd" data-group="score">
+              <option value="0" selected>请选择</option>
+              <option value="5">0 轴上金叉放大</option>
+              <option value="2.5">一般</option>
+              <option value="0">无</option>
+            </select>
+          </label>
+          <label>
+            LON
+            <select id="lon" data-group="score">
+              <option value="0" selected>请选择</option>
+              <option value="5">0 轴上金叉放大</option>
+              <option value="2.5">一般</option>
+              <option value="0">无</option>
+            </select>
+          </label>
+          <label>
+            指标同步
+            <select id="sync" data-group="score">
+              <option value="0" selected>请选择</option>
+              <option value="5">同周期</option>
+              <option value="3">前后几日</option>
+              <option value="0">不同步</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="band-title">
+          <span class="step">06</span>
+          <div>
+            <h2>大周期和加分项</h2>
+            <p>最多加 10 分，记录周线、月线和洗盘结构。</p>
+          </div>
+        </div>
+        <div class="grid">
+          <label>
+            月线
+            <select id="monthly" data-group="score">
+              <option value="0" selected>请选择</option>
+              <option value="3">多头</option>
+              <option value="1.5">横盘</option>
+              <option value="0">空头</option>
+            </select>
+          </label>
+          <label>
+            周线
+            <select id="weekly" data-group="score">
+              <option value="0" selected>请选择</option>
+              <option value="4">转强</option>
+              <option value="2">一般</option>
+              <option value="0">未转强</option>
+            </select>
+          </label>
+          <label>
+            洗盘
+            <select id="wash" data-group="score">
+              <option value="0" selected>请选择</option>
+              <option value="3">有</option>
+              <option value="0">无</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="band-title">
+          <span class="step">07</span>
+          <div>
+            <h2>一句话复盘</h2>
+            <p>写给自己看的记录，不写成操作结论。</p>
+          </div>
+        </div>
+        <textarea id="note" rows="5" placeholder="例如：平台较长、量能配合，但启动后回调时需要继续观察均线承接。"></textarea>
+      </section>
+    </section>
+
+    <aside class="summary" aria-label="记录结果">
+      <section class="score-panel">
+        <p class="panel-label">五维记录分</p>
+        <div class="score-line">
+          <strong id="totalScore">0</strong>
+          <span>/ 100</span>
+        </div>
+        <p id="scoreLevel" class="score-level">待填写</p>
+        <div class="score-bars">
+          <div><span>平台</span><meter id="platformMeter" min="0" max="30" value="0"></meter><b id="platformScore">0</b></div>
+          <div><span>K 线</span><meter id="klineMeter" min="0" max="25" value="0"></meter><b id="klineScore">0</b></div>
+          <div><span>量能</span><meter id="volumeMeter" min="0" max="20" value="0"></meter><b id="volumeScore">0</b></div>
+          <div><span>指标</span><meter id="indicatorMeter" min="0" max="15" value="0"></meter><b id="indicatorScore">0</b></div>
+          <div><span>加分</span><meter id="bonusMeter" min="0" max="10" value="0"></meter><b id="bonusScore">0</b></div>
+        </div>
+      </section>
+
+      <section class="warnings-panel">
+        <h2>扣分提醒</h2>
+        <ul id="warnings"></ul>
+      </section>
+
+      <section class="output-panel">
+        <h2>生成记录</h2>
+        <textarea id="recordOutput" rows="11" readonly></textarea>
+        <div class="action-grid">
+          <button id="copyRecord">复制记录</button>
+          <button id="exportCard">导出记录卡</button>
+          <button id="exportCsv">导出 CSV</button>
+          <button id="exportJson">导出 JSON</button>
+          <button id="clearForm" class="danger">清空表单</button>
+        </div>
+      </section>
+
+      <section class="card-panel">
+        <h2>记录卡预览</h2>
+        <div class="record-card" id="recordCard">
+          <p class="card-kicker">纪律老吴｜主升浪历史样本记录</p>
+          <h3 id="cardTitle">样本 No.xxx</h3>
+          <div class="card-score">
+            <span>五维记录分</span>
+            <strong id="cardScore">0分</strong>
+          </div>
+          <div class="card-grid">
+            <div><b id="cardDays">--天</b><span>整理周期</span></div>
+            <div><b id="cardVolume">--倍</b><span>倍量</span></div>
+            <div><b id="cardTurnover">--%</b><span>换手</span></div>
+            <div><b id="cardMove">--</b><span id="cardMoveLabel">回溯表现</span></div>
+          </div>
+          <p class="card-warning" id="cardWarning">扣分项会显示在这里。</p>
+          <p class="card-note" id="cardNote">只记录历史样本，不预测未来。个人复盘记录，不构成投资建议。</p>
+        </div>
+      </section>
+
+      <section class="saved-panel">
+        <h2>已保存样本</h2>
+        <div id="savedList" class="saved-list"></div>
+      </section>
+
+      <p class="disclaimer">这个工具默认用于历史样本复盘记录；观察样本只作个人记录，不提供当前个股判断，也不作为买卖依据。</p>
+
+      <section class="fit-panel">
+        <h2>适合谁</h2>
+        <ul>
+          <li>想长期记录主升浪历史样本的人。</li>
+          <li>复盘时经常漏看平台、量能、指标和大周期的人。</li>
+          <li>想把强样本和反例放到同一套表里比较的人。</li>
+        </ul>
+        <h2>不适合谁</h2>
+        <ul>
+          <li>想找股票名单、买卖点或当前个股判断的人。</li>
+          <li>想用分数直接决定交易动作的人。</li>
+        </ul>
+      </section>
+    </aside>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
